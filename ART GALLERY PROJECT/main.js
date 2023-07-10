@@ -61,10 +61,10 @@ scene.add(wallGroup);
 
 
 //frontwall texture
-const frontWallTexture = new THREE.TextureLoader().load('https://raw.githubusercontent.com/GULLLYYYYY/Art-Gallery-Project/main/Images/Floor%204.jpg')
+const frontWallTexture = new THREE.TextureLoader().load('https://media.githubusercontent.com/media/GULLLYYYYY/ART-GALLERY-PROJECT-WORK/main/ART%20GALLERY%20PROJECT/public/img/annie-spratt-6a3nqQ1YwBw-unsplash.jpg')
 frontWallTexture.wrapS = THREE.RepeatWrapping;
 frontWallTexture.wrapT = THREE.RepeatWrapping;
-frontWallTexture.repeat.set(1,1);
+frontWallTexture.repeat.set(3,1);
 
 //frontwall
 const frontWall = new THREE.Mesh(
@@ -77,11 +77,13 @@ const frontWall = new THREE.Mesh(
 
 frontWall.position.z = -25
 
-
 //left wall
 const leftWall = new THREE.Mesh(
   new THREE.BoxGeometry(50, 20, 0.001),
-  new THREE.MeshLambertMaterial({ color: 'red' })
+  new THREE.MeshLambertMaterial({ 
+    map: frontWallTexture,
+    side: THREE.DoubleSide
+   })
 );
 
 leftWall.rotation.y = Math.PI / 2;
@@ -91,7 +93,10 @@ leftWall.position.x = -20;
 //right wall
 const rightWall = new THREE.Mesh(
   new THREE.BoxGeometry(50, 20, 0.001),
-  new THREE.MeshLambertMaterial({ color: 'yellow' })
+  new THREE.MeshLambertMaterial({ 
+    map: frontWallTexture,
+    side: THREE.DoubleSide
+   })
 );
 
 rightWall.rotation.y = Math.PI / 2;
@@ -105,9 +110,19 @@ for (let i = 0; i < wallGroup.children.length; i++) {
   wallGroup.children[i].BBox.setFromObject(wallGroup.children[i]);
 }
 
+
+//ceiling texture
+const ceilingTexture = new THREE.TextureLoader().load('https://media.githubusercontent.com/media/GULLLYYYYY/ART-GALLERY-PROJECT-WORK/main/ART%20GALLERY%20PROJECT/public/img/ceiling.jpg')
+ceilingTexture.wrapS = THREE.RepeatWrapping;
+ceilingTexture.wrapT = THREE.RepeatWrapping;
+ceilingTexture.repeat.set(1,3);
+
 //creating ceiling 
 const ceilingGeometry = new THREE.PlaneBufferGeometry(50, 50);
-const ceilingMaterial = new THREE.MeshLambertMaterial({ color: 'blue' });
+const ceilingMaterial = new THREE.MeshLambertMaterial({ 
+  map: ceilingTexture,
+    side: THREE.DoubleSide
+ });
 const ceilingPlane = new THREE.Mesh(ceilingGeometry, ceilingMaterial);
 
 ceilingPlane.rotation.x = Math.PI / 2;
@@ -191,19 +206,19 @@ function onKeyDown(event) {
 
   // right arrow key
   if (keycode === 39 || keycode === 68) {
-    controls.moveRight(0.08);
+    controls.moveRight(0.3);
   }
   // left arrow key
   else if (keycode === 37 || keycode === 65) {
-    controls.moveRight(-0.08);
+    controls.moveRight(-0.3);
   }
   // up arrow key
   else if (keycode === 38 || keycode === 87) {
-    controls.moveForward(0.08);
+    controls.moveForward(0.3);
   }
   // down arrow key
   else if (keycode === 40 || keycode === 83) {
-    controls.moveForward(-0.08);
+    controls.moveForward(-0.3);
   }
 }
 
