@@ -38,7 +38,7 @@ scene.add(cube); // add cube to scene
 
 
 //Texture of the floor
-const floorTexture = new THREE.TextureLoader().load('https://raw.githubusercontent.com/GULLLYYYYY/Art-Gallery-Three.js/main/Images/Floor%206.jpg')
+const floorTexture = new THREE.TextureLoader().load('https://media.githubusercontent.com/media/GULLLYYYYY/ART-GALLERY-PROJECT-WORK/main/ART%20GALLERY%20PROJECT/public/img/Floor%201.jpg')
 floorTexture.wrapS = THREE.RepeatWrapping;
 floorTexture.wrapT = THREE.RepeatWrapping;
 floorTexture.repeat.set(10,10);
@@ -87,7 +87,7 @@ const backWall = new THREE.Mesh(
    })
 );
 
-backWall.position.z = 25
+backWall.position.z = 23
 
 
 //left wall
