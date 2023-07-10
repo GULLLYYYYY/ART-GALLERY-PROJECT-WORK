@@ -180,16 +180,16 @@ function createPainting(imageURL, width, height, position) {
 
 const painting1 = createPainting(
   'https://raw.githubusercontent.com/GULLLYYYYY/Art-Gallery-Three.js/main/Images/12.-Son-of-Man.jpg',
-  10,
   5,
-  new THREE.Vector3(-10, 5, -18)
+  7,
+  new THREE.Vector3(-10, 3, -24.5)
 );
 
 const painting2 = createPainting(
   'https://raw.githubusercontent.com/GULLLYYYYY/Art-Gallery-Three.js/main/Images/Rene%20Magritte.jpg',
-  10,
+  9,
   5,
-  new THREE.Vector3(-10, 5, -20)
+  new THREE.Vector3(11, 3, -24.5)
 );
 
 scene.add(painting1, painting2);
