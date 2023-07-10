@@ -119,9 +119,30 @@ wallGroup.add(frontWall, backWall, leftWall, rightWall);
 
 //loop through the walls and create a bounding box to ensure that you cannot move through the walls
 for (let i = 0; i < wallGroup.children.length; i++) {
-  wallGroup.children[i].BBox = new THREE.Box3();
-  wallGroup.children[i].BBox.setFromObject(wallGroup.children[i]);
+  wallGroup.children[i].BoundingBox = new THREE.Box3();
+  wallGroup.children[i].BoundingBox.setFromObject(wallGroup.children[i]);
 }
+
+function checkCollision() {
+  const playerBoundingBox = new THREE.Box3(); // create a bounding box for the player.
+  const cameraWorldPosition = new THREE.Vector3(); //vector used to hold the cameras position
+  camera.getWorldPosition(cameraWorldPosition); //gets the cameras position and stores it in the above vector to represent the "players" position
+  playerBoundingBox.setFromCenterAndSize(
+    cameraWorldPosition,
+    new THREE.Vector3(1, 1, 1)
+  );
+
+  for (let i = 0; i < wallGroup.children.length; i++) {
+    const wall = wallGroup.children[i];
+    if (playerBoundingBox.intersectsBox(wall.BoundingBox)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+
 
 
 //ceiling texture
@@ -210,37 +231,103 @@ function showMenu() {
 controls.addEventListener('unlock', showMenu);
 
 
-// Event Listenet for when we press the keys
-document.addEventListener('keydown', onKeyDown, false);
+//movement
+const keysPressed = {
+  ArrowUp: false,
+  ArrowDown: false,
+  ArrowLeft: false,
+  ArrowRight: false,
+  w: false,
+  a: false,
+  s: false,
+  d: false, 
+};
 
-// function when a key is pressed, execute this function
-function onKeyDown(event) {
-  let keycode = event.which;
+// // Event Listenet for when we press the keys
+document.addEventListener('keydown',
+ (event) => {
+  if (event.key in keysPressed) {
+    //check if the key pressed is withing the KeysPressed object
+    keysPressed[event.key] = true; //if it is one of the assigned movement key, it returns true and now will execute the assigned value and direction to make the player move.
+  }
+ },
+ false
+);
 
-  // right arrow key
-  if (keycode === 39 || keycode === 68) {
-    controls.moveRight(0.3);
+document.addEventListener('keyup',
+ (event) => {
+  if (event.key in keysPressed) {
+    //check if the key released is withing the KeysPressed object
+    keysPressed[event.key] = false; //if it is released, the value is set to false (essentially setting the movement to static)
   }
-  // left arrow key
-  else if (keycode === 37 || keycode === 65) {
-    controls.moveRight(-0.3);
+ },
+ false
+);
+
+const clock = new THREE.Clock();
+
+function updateMovement(delta) {
+  const moveSpeed = 7 * delta;
+  const previousPosition = camera.position.clone();
+
+  if (keysPressed.ArrowRight || keysPressed.d) {
+    controls.moveRight(moveSpeed);
   }
-  // up arrow key
-  else if (keycode === 38 || keycode === 87) {
-    controls.moveForward(0.3);
+  if (keysPressed.ArrowLeft || keysPressed.a) {
+    controls.moveRight(-moveSpeed);
   }
-  // down arrow key
-  else if (keycode === 40 || keycode === 83) {
-    controls.moveForward(-0.3);
+  if (keysPressed.ArrowUp || keysPressed.w) {
+    controls.moveForward(moveSpeed);
+  }
+  if (keysPressed.ArrowDown || keysPressed.s) {
+    controls.moveForward(-moveSpeed);
+  }
+  
+  if (checkCollision()) {
+    camera.position.copy(previousPosition);
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // function when a key is pressed, execute this function
+// function onKeyDown(event) {
+//   let keycode = event.which;
+
+//   // right arrow key
+//   if (keycode === 39 || keycode === 68) {
+//     controls.moveRight(0.3);
+//   }
+//   // left arrow key
+//   else if (keycode === 37 || keycode === 65) {
+//     controls.moveRight(-0.3);
+//   }
+//   // up arrow key
+//   else if (keycode === 38 || keycode === 87) {
+//     controls.moveForward(0.3);
+//   }
+//   // down arrow key
+//   else if (keycode === 40 || keycode === 83) {
+//     controls.moveForward(-0.3);
+//   }
+// }
 
 let render = function () {
   cube.rotation.x += 0.01;
   cube.rotation.y += 0.01;
-
+  const delta = clock.getDelta();//get the time between frames, making it more accessible across all kinds of laptops etc, with different refresh rates.
+  updateMovement(delta);//update the movement with the time between frames.
   renderer.render(scene, camera); //renders the scene
-
   requestAnimationFrame(render);
 };
 
