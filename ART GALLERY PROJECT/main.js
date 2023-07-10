@@ -177,22 +177,48 @@ function createPainting(imageURL, width, height, position) {
   painting.position.set(position.x, position.y, position.z);
   return painting; 
 }
-
+//main wall paintings (rene magritte)
 const painting1 = createPainting(
   'https://raw.githubusercontent.com/GULLLYYYYY/Art-Gallery-Three.js/main/Images/12.-Son-of-Man.jpg',
-  5,
+  6,
   7,
-  new THREE.Vector3(-10, 3, -24.5)
+  new THREE.Vector3(0, 3, -24.99)
 );
 
 const painting2 = createPainting(
   'https://raw.githubusercontent.com/GULLLYYYYY/Art-Gallery-Three.js/main/Images/Rene%20Magritte.jpg',
   9,
   5,
-  new THREE.Vector3(11, 3, -24.5)
+  new THREE.Vector3(11, 3, -24.99)
 );
 
-scene.add(painting1, painting2);
+const painting3 = createPainting(
+  'https://media.githubusercontent.com/media/GULLLYYYYY/ART-GALLERY-PROJECT-WORK/main/ART%20GALLERY%20PROJECT/public/img/tokyo-rene-magritte-exhibition-114438.jpg',
+  9,
+  5,
+  new THREE.Vector3(-11, 3, -24.99)
+);
+
+//left wall paintings (Edward Hopper)
+const painting4 = createPainting(
+  'https://media.githubusercontent.com/media/GULLLYYYYY/ART-GALLERY-PROJECT-WORK/main/ART%20GALLERY%20PROJECT/public/img/Nighthawks_by_Edward_Hopper_1942.jpg',
+  9,
+  5,
+  new THREE.Vector3(-19.99, 3, -1)
+);
+painting4.rotation.y = Math.PI / 2;
+
+//rightwall paintings ()
+const painting5 = createPainting(
+  'https://media.githubusercontent.com/media/GULLLYYYYY/ART-GALLERY-PROJECT-WORK/main/ART%20GALLERY%20PROJECT/public/img/Alexandre_Cabanel_Ph%C3%A8dre.jpg',
+  9,
+  5,
+  new THREE.Vector3(19.99, 3, -1)
+);
+painting5.rotation.y = -Math.PI / 2;
+
+
+scene.add(painting1, painting2, painting3, painting4, painting5);
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
