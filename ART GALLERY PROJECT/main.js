@@ -77,6 +77,19 @@ const frontWall = new THREE.Mesh(
 
 frontWall.position.z = -25
 
+
+//backwall
+const backWall = new THREE.Mesh(
+  new THREE.BoxGeometry(50, 20, 0.001),
+  new THREE.MeshLambertMaterial({ 
+    map: frontWallTexture,
+    side: THREE.DoubleSide
+   })
+);
+
+backWall.position.z = 25
+
+
 //left wall
 const leftWall = new THREE.Mesh(
   new THREE.BoxGeometry(50, 20, 0.001),
@@ -102,7 +115,7 @@ const rightWall = new THREE.Mesh(
 rightWall.rotation.y = Math.PI / 2;
 rightWall.position.x = 20;
 
-wallGroup.add(frontWall, leftWall, rightWall);
+wallGroup.add(frontWall, backWall, leftWall, rightWall);
 
 //loop through the walls and create a bounding box to ensure that you cannot move through the walls
 for (let i = 0; i < wallGroup.children.length; i++) {
@@ -112,10 +125,10 @@ for (let i = 0; i < wallGroup.children.length; i++) {
 
 
 //ceiling texture
-const ceilingTexture = new THREE.TextureLoader().load('https://media.githubusercontent.com/media/GULLLYYYYY/ART-GALLERY-PROJECT-WORK/main/ART%20GALLERY%20PROJECT/public/img/ceiling.jpg')
+const ceilingTexture = new THREE.TextureLoader().load('https://media.githubusercontent.com/media/GULLLYYYYY/ART-GALLERY-PROJECT-WORK/main/ART%20GALLERY%20PROJECT/public/img/360_F_356921564_y3kjX7ce4GlEWR7vCuybqmUq6iP6jWxY.jpg')
 ceilingTexture.wrapS = THREE.RepeatWrapping;
 ceilingTexture.wrapT = THREE.RepeatWrapping;
-ceilingTexture.repeat.set(1,3);
+ceilingTexture.repeat.set(3.5,3.5);
 
 //creating ceiling 
 const ceilingGeometry = new THREE.PlaneBufferGeometry(50, 50);
