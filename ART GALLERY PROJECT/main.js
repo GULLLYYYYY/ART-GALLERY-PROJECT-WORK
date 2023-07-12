@@ -333,21 +333,23 @@ scene.add(painting1, painting2, painting3, painting4, painting5, painting6,
 ////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
-const player = new Tone.Player("E:\UWE\Digital Media\Creative and physical computing\ART-GALLERY-PROJECT-WORK\ART GALLERY PROJECT\public\Music\the-lamp-is-low.mp3").toDestination();
+const player = new Tone.Player("https://od.lk/s/NTFfMzIxNzgxMDFf/the-lamp-is-low%20%281%29.mp3").toDestination();
 
 
 // Controls
 
 const controls = new PointerLockControls(camera, document.body);
 
-function StartExperience() {
+async function StartExperience() {
   controls.lock();
 
   hideMenu();
 
   // Make sure audio is allowed to play
-  Tone.start();
+  await Tone.start();
 
+  // Wait for the player to load and then start it
+  await player.load("https://od.lk/s/NTFfMzIxNzgxMDFf/the-lamp-is-low%20%281%29.mp3");
   // Start the player
   player.start();
 }
