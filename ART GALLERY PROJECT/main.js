@@ -2,6 +2,10 @@ console.log('Three Object', THREE);
 import * as THREE from 'three'
 import { PointerLockControls } from 'three-stdlib';
 const scene = new THREE.Scene(); // create a new scene
+// var mouse, raycaster;
+// var paintings = createPainting;
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
 
 // Create a camera, which defines where we're looking at.
 const camera = new THREE.PerspectiveCamera(
@@ -166,7 +170,10 @@ scene.add(ceilingPlane);
 
 
 
-function createPainting(imageURL, width, height, position) {
+
+////////////////////////////////
+//adding paintings to the scene
+function createPainting(imageURL, width, height, position, description) {
   const textureLoader = new THREE.TextureLoader();
   const paintingTexture = textureLoader.load(imageURL);
   const paintingMaterial = new THREE.MeshBasicMaterial({
@@ -175,60 +182,158 @@ function createPainting(imageURL, width, height, position) {
   const paintingGeometry = new THREE.PlaneGeometry(width, height);
   const painting = new THREE.Mesh(paintingGeometry, paintingMaterial);
   painting.position.set(position.x, position.y, position.z);
+
+
+//Add description to painting's userData
+painting.userData = {
+  description: description
+};
   return painting; 
 }
-//main wall paintings (rene magritte)
+
+//front wall paintings (rene magritte)
 const painting1 = createPainting(
-  'https://raw.githubusercontent.com/GULLLYYYYY/Art-Gallery-Three.js/main/Images/12.-Son-of-Man.jpg',
-  6,
+  'https://media.githubusercontent.com/media/GULLLYYYYY/ART-GALLERY-PROJECT-WORK/main/ART%20GALLERY%20PROJECT/public/img/Picture2.jpg',
   7,
-  new THREE.Vector3(0, 3, -24.99)
+  5,
+  new THREE.Vector3(0, 3, -24.99),
+  'This is the description for Painting 1.'
 );
 
 const painting2 = createPainting(
-  'https://raw.githubusercontent.com/GULLLYYYYY/Art-Gallery-Three.js/main/Images/Rene%20Magritte.jpg',
-  9,
+  'https://media.githubusercontent.com/media/GULLLYYYYY/ART-GALLERY-PROJECT-WORK/main/ART%20GALLERY%20PROJECT/public/img/056.jpg',
+  7,
   5,
-  new THREE.Vector3(11, 3, -24.99)
+  new THREE.Vector3(11, 3, -24.99),
+  'This is the description for Painting 2.'
 );
 
 const painting3 = createPainting(
-  'https://media.githubusercontent.com/media/GULLLYYYYY/ART-GALLERY-PROJECT-WORK/main/ART%20GALLERY%20PROJECT/public/img/tokyo-rene-magritte-exhibition-114438.jpg',
-  9,
+  'https://media.githubusercontent.com/media/GULLLYYYYY/ART-GALLERY-PROJECT-WORK/main/ART%20GALLERY%20PROJECT/public/img/Summer2022_web-images_26_27_Caravaggio.jpg',
+  7,
   5,
-  new THREE.Vector3(-11, 3, -24.99)
+  new THREE.Vector3(-11, 3, -24.99),
+  'This is the description for Painting 3.'
 );
 
+
+
+
+
+
 //left wall paintings (Edward Hopper)
+
+//left wall painting (center)
 const painting4 = createPainting(
   'https://media.githubusercontent.com/media/GULLLYYYYY/ART-GALLERY-PROJECT-WORK/main/ART%20GALLERY%20PROJECT/public/img/Nighthawks_by_Edward_Hopper_1942.jpg',
-  9,
+  8,
   5,
-  new THREE.Vector3(-19.99, 3, -1)
+  new THREE.Vector3(-19.99, 3, -1),
+  'This is the description for Painting 4.'
 );
 painting4.rotation.y = Math.PI / 2;
 
-//rightwall paintings ()
+//left wall painting (left)
+const painting11 = createPainting(
+  'https://media.githubusercontent.com/media/GULLLYYYYY/ART-GALLERY-PROJECT-WORK/main/ART%20GALLERY%20PROJECT/public/img/large_70_1208_Hopper_Soir_Bleu.jpg',
+  8,
+  5,
+  new THREE.Vector3(-19.99, 3, -14),
+  'This is the description for Painting 5.'
+);
+painting11.rotation.y = Math.PI / 2;
+
+//left wall painting (left)
+const painting12 = createPainting(
+  'https://media.githubusercontent.com/media/GULLLYYYYY/ART-GALLERY-PROJECT-WORK/main/ART%20GALLERY%20PROJECT/public/img/Picture3.jpg',
+  8,
+  5,
+  new THREE.Vector3(-19.99, 3, 14),
+  'This is the description for Painting 6.'
+);
+painting12.rotation.y = Math.PI / 2;
+
+
+
+
+
+//rightwall paintings (Cabanel)
+
+//right wall (center)
 const painting5 = createPainting(
   'https://media.githubusercontent.com/media/GULLLYYYYY/ART-GALLERY-PROJECT-WORK/main/ART%20GALLERY%20PROJECT/public/img/Alexandre_Cabanel_Ph%C3%A8dre.jpg',
-  9,
+  8,
   5,
-  new THREE.Vector3(19.99, 3, -1)
+  new THREE.Vector3(19.99, 3, -1),
+  'This is the description for Painting 7.'
 );
 painting5.rotation.y = -Math.PI / 2;
 
+//right wall (left)
+const painting9 = createPainting(
+  'https://media.githubusercontent.com/media/GULLLYYYYY/ART-GALLERY-PROJECT-WORK/main/ART%20GALLERY%20PROJECT/public/img/alexandre-cabanel-obelisk-art-history.jpg',
+  8,
+  5,
+  new THREE.Vector3(19.99, 3, -14),
+  'This is the description for Painting 8.'
+);
+painting9.rotation.y = -Math.PI / 2;
 
-scene.add(painting1, painting2, painting3, painting4, painting5);
+//right wall (right)
+const painting10 = createPainting(
+  'https://media.githubusercontent.com/media/GULLLYYYYY/ART-GALLERY-PROJECT-WORK/main/ART%20GALLERY%20PROJECT/public/img/the-fallen-angel-alexandre-cabanel.jpg',
+  8,
+  5,
+  new THREE.Vector3(19.99, 3, 14),
+  'This is the description for Painting 9.'
+);
+painting10.rotation.y = -Math.PI / 2;
 
 
+
+
+//back wall paintings(Caravaggio)
+
+//painting on the back wall (left)
+const painting6 = createPainting(
+  'https://raw.githubusercontent.com/GULLLYYYYY/Art-Gallery-Three.js/main/Images/Rene%20Magritte.jpg',
+  8,
+  5,
+  new THREE.Vector3(-11, 3, 22.99),
+  'This is the description for Painting 10.'
+);
+painting6.rotation.y = Math.PI;
+
+//painting on the back wall (right)
+const painting7 = createPainting(
+  'https://media.githubusercontent.com/media/GULLLYYYYY/ART-GALLERY-PROJECT-WORK/main/ART%20GALLERY%20PROJECT/public/img/tokyo-rene-magritte-exhibition-114438.jpg',
+  8,
+  5,
+  new THREE.Vector3(11, 3, 22.99),
+  'This is the description for Painting 11.'
+);
+painting7.rotation.y = Math.PI;
+
+//painting on the back wall (center)
+const painting8 = createPainting(
+  'https://raw.githubusercontent.com/GULLLYYYYY/Art-Gallery-Three.js/main/Images/12.-Son-of-Man.jpg',
+  6,
+  7,
+  new THREE.Vector3(0, 3, 22.99),
+  'This is the description for Painting 12.'
+);
+painting8.rotation.y = Math.PI;
+
+
+
+scene.add(painting1, painting2, painting3, painting4, painting5, painting6, 
+  painting7, painting8, painting9, painting10, painting11, painting12);
+
+ 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////
-//you ended here, you have to go over to git hub and push the new shit, Especially the paintings you will use, 
-//after that you just have to continue working.
-//46:46 is the timestamp on the vid!!!!!!!!!!!!!!
 
+const player = new Tone.Player("E:\UWE\Digital Media\Creative and physical computing\ART-GALLERY-PROJECT-WORK\ART GALLERY PROJECT\public\Music\the-lamp-is-low.mp3").toDestination();
 
 
 // Controls
@@ -239,6 +344,12 @@ function StartExperience() {
   controls.lock();
 
   hideMenu();
+
+  // Make sure audio is allowed to play
+  Tone.start();
+
+  // Start the player
+  player.start();
 }
 
 const playButton = document.getElementById('play_button');
@@ -315,44 +426,116 @@ function updateMovement(delta) {
 }
 
 
+// Attach the mouse click event listener
 
+const paintings = [painting1, painting2, painting3, painting4, painting5, painting6, painting7, painting8, painting9, painting10, painting11, painting12];
 
+function onMouseClick(event) {
+  // Calculate mouse position in normalized device coordinates
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
+  // Cast a ray from the camera's perspective through the mouse position
+  raycaster.setFromCamera(mouse, camera);
 
+  // Check for intersections with the paintings only
+  const intersects = raycaster.intersectObjects(paintings, true);
 
+  console.log('Intersects:', intersects);
 
+  // If there is an intersection with a painting, show the description popup
+  if (intersects.length > 0) {
+    const painting = intersects[0].object;
+    showPaintingDescriptionPopup(painting.userData.description);
+  }
+}
 
+// Attach the mouse click event listener
+window.addEventListener('click', onMouseClick, false);
 
+// Show the painting description popup
+function closePopupOnF(event) {
+  if (event.key === 'f') {
+    // Check if there is a current popup and remove it
+    if (window.currentPopup) {
+      const container = document.getElementById('popup-container');
+      // container.removeChild(window.currentPopup);
+      // window.currentPopup = null; // Reset the global variable
+// Remove the "show" class to fade out the popup
+container.classList.remove('show');
 
+// Remove the popup after the fade out animation is complete
+setTimeout(function() {
+  container.removeChild(window.currentPopup);
+  window.currentPopup = null; // Reset the global variable
+}, 300); // 300ms is the duration of the fade out animation
+      // Remove this event listener since popup is closed
+      document.removeEventListener('keydown', closePopupOnF);
+    }
+  }
+}
 
+// Show the painting description popup
+function showPaintingDescriptionPopup(description) {
+  const container = document.getElementById('popup-container');
 
-// // function when a key is pressed, execute this function
-// function onKeyDown(event) {
-//   let keycode = event.which;
+  // Clear the popup container's contents
+  container.innerHTML = '';
 
-//   // right arrow key
-//   if (keycode === 39 || keycode === 68) {
-//     controls.moveRight(0.3);
-//   }
-//   // left arrow key
-//   else if (keycode === 37 || keycode === 65) {
-//     controls.moveRight(-0.3);
-//   }
-//   // up arrow key
-//   else if (keycode === 38 || keycode === 87) {
-//     controls.moveForward(0.3);
-//   }
-//   // down arrow key
-//   else if (keycode === 40 || keycode === 83) {
-//     controls.moveForward(-0.3);
-//   }
+  const popup = document.createElement('div');
+  popup.classList.add('popup');
+  popup.innerHTML = description;
+  container.appendChild(popup);
+
+  // Save the popup to the global scope for later access
+  window.currentPopup = popup;
+
+  // Add the event listener to close popup when 'E' is pressed
+  document.addEventListener('keydown', closePopupOnF);
+
+   // Add the "show" class to fade in the popup
+   setTimeout(function() {
+    container.classList.add('show');
+  }, 50);
+}
+// function showPaintingDescriptionPopup(description) {
+//   const container = document.getElementById('popup-container');
+
+//   const popup = document.createElement('div');
+//   popup.classList.add('popup');
+//   popup.innerHTML = description;
+//   container.appendChild(popup);
+
+//   // Add a button to close the popup
+//   const closeButton = document.createElement('button');
+//   closeButton.innerText = 'Close';
+//   closeButton.addEventListener('click', () => {
+//     container.removeChild(popup);
+//   });
+//   popup.appendChild(closeButton);
 // }
 
+///////////////////////////////////////////////////////////////
 let render = function () {
   cube.rotation.x += 0.01;
   cube.rotation.y += 0.01;
   const delta = clock.getDelta();//get the time between frames, making it more accessible across all kinds of laptops etc, with different refresh rates.
   updateMovement(delta);//update the movement with the time between frames.
+
+ // Cast a ray from the camera's perspective through the mouse position
+ raycaster.setFromCamera(mouse, camera);
+
+ // Check for intersections with the paintings
+ const intersects = raycaster.intersectObjects(scene.children, true);
+
+ // Change cursor style based on intersection
+ if (intersects.length > 0) {
+   document.body.style.cursor = 'pointer';
+ } else {
+   document.body.style.cursor = 'auto';
+ }
+
+
   renderer.render(scene, camera); //renders the scene
   requestAnimationFrame(render);
 };

@@ -216,7 +216,7 @@ canvas {
   }
 }
 
-#painting-info {
+#popup-container {
   position: fixed;
   top: 20px;
   left: 20px;
@@ -233,23 +233,23 @@ canvas {
   opacity: 0;
 }
 
-#painting-info.show {
+#popup-container.show {
   transform: translateY(0);
-  opacity: 1;
+  opacity: 100;
 }
-
-#painting-info h3 {
+/* 
+#popup-container h3 {
   margin: 0 0 10px 0;
   font-size: 2em;
   font-weight: bold;
   text-transform: uppercase;
 }
 
-#painting-info p {
+#popup-container p {
   margin: 0;
   font-size: 1.2em;
-}
-
+} */
+ 
 #info-panel {
   position: fixed;
   bottom: 10px;
