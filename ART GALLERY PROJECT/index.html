@@ -3,12 +3,11 @@
 
 <head>
     <meta charset="utf-8">
-
     <title>3D Art Gallery</title>
-    Access-Control-Allow-Origin : https://od.lk/s/NTFfMzIxNzgxMDFf/the-lamp-is-low%20%281%29.mp3
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.26/Tone.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/tone@14.8.30/build/Tone.min.js"></script> -->
+    <!-- <div>Access-Control-Allow-Origin : https://od.lk/s/NTFfMzIxNzgxMDFf/the-lamp-is-low%20%281%29.mp3</div> -->
     <link rel="stylesheet" href="./style.css">
-    <script src="https://cdn.jsdelivr.net/npm/tone@14.8.30/build/Tone.min.js"></script>
-    <iframe src="https://www.opendrive.com/player/NTFfMzIxNzgxMDFfTDFVaVM" height="25" width="297" style="border:0" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
 </head>
 
 <body>
@@ -72,13 +71,34 @@
 
     <div id="audio_controls">
         <button id="start_audio">Start Audio Guide</button>
+
         <button id="stop_audio">Stop Audio Guide</button>
     </div>
 
     <div id="popup-container"></div>
 
     <script type="module" src="/main.js"></script>
-
+   
+   
+   <script>
+        const audioFileUrl = "";
+  
+        const player = new Tone.Player(audioFileUrl).toDestination();
+  
+        const playButton = document.getElementById("playButton");
+        playButton.addEventListener("click", () => {
+          if (player.state === "stopped") {
+            player.start();
+            playButton.textContent = "Pause";
+          } else {
+            player.stop();
+            playButton.textContent = "Play";
+          }
+        });
+      </script>
 </body>
 
 </html>
+
+
+<!-- <iframe src="https://www.opendrive.com/player/NTFfMzIxNzgxMDFfTDFVaVM" height="25" width="297" style="border:0" scrolling="no" frameborder="0" allowtransparency="true"></iframe>  -->

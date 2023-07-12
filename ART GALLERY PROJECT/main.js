@@ -333,7 +333,7 @@ scene.add(painting1, painting2, painting3, painting4, painting5, painting6,
 ////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
-const player = new Tone.Player("https://od.lk/s/NTFfMzIxNzgxMDFf/the-lamp-is-low%20%281%29.mp3").toDestination();
+// const player = new Tone.Player("https://od.lk/s/NTFfMzIxNzgxMDFf/the-lamp-is-low%20%281%29.mp3").toDestination();
 
 
 // Controls
@@ -345,13 +345,13 @@ async function StartExperience() {
 
   hideMenu();
 
-  // Make sure audio is allowed to play
-  await Tone.start();
+  // // Make sure audio is allowed to play
+  // await Tone.start();
 
-  // Wait for the player to load and then start it
-  await player.load("https://od.lk/s/NTFfMzIxNzgxMDFf/the-lamp-is-low%20%281%29.mp3");
-  // Start the player
-  player.start();
+  // // Wait for the player to load and then start it
+  // await player.load("https://od.lk/s/NTFfMzIxNzgxMDFf/the-lamp-is-low%20%281%29.mp3");
+  // // Start the player
+  // player.start();
 }
 
 const playButton = document.getElementById('play_button');
